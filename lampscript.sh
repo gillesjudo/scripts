@@ -8,7 +8,7 @@ APPHOME="/var/www/html"
 set -e
 function dep () {
 sudo apt install curl -y
-sudo apt install apache2 -y
+sudo apt install apache2 libapache2-mod-security2 -y
 sudo apt install mariadb-server -y
 sudo apt install php php-pdo php-mysql -y
 }
