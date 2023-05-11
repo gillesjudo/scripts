@@ -4,7 +4,6 @@ sudo apt update -y && sudo apt upgrade -y
 #This section defines the functions and variables used below we do not include the environment variables
 #like $USER in this section. 
 APPHOME="/var/www/html"
-sudo echo 'APPHOME="/var/www/html' >> /etc/environment
 #This section will run a function that installs the dependencies for this setup
 set -e
 function dep () {
