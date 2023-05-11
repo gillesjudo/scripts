@@ -9,7 +9,7 @@ function dep () {
 sudo apt install curl -y
 sudo apt install apache2 -y
 sudo apt install mariadb-server -y
-sudo apt install php php-pdo php8.1-mysql -y
+sudo apt install php php-pdo php-mysql -y
 }
 #This section below create the firewall rules necessary for lamp to function
 function firewallConf () {
