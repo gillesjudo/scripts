@@ -20,7 +20,7 @@ sudo ufw allow 80
 sudo ufw allow 443
 }
 dep
-sudo chown $USER:$USER $APPHOME
+sudo chown -R $USER:$USER $APPHOME
 firewallConf
 sudo mysql_secure_installation
 sudo systemctl enable mariadb.service
