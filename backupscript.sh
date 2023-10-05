@@ -6,17 +6,23 @@
 #in a specified location. The script should also check 
 #if the backup file already exists and prompt
 #the user to overwrite it if necessary.
-
+if [ -d $HOME/backup ]; then
+	echo "Backup folder exists, continuing!"
+else 
+	mkdir $HOME/backup
+	echo "Creating the folder to save the compressed backup"
+	echo "Created!"
+fi
 dirName=$(echo $1 | grep -Eo '(\w+\/?$)')
 fileName=$(echo $1 | grep -Eo '(\w+\.?\w+$)')
 #narrowing down var to for utilization as file name
-newFileName=$(echo $fileName | grep -Eo '(^\w+)')
-newDirName=$(echo $dirName | grep -Eo '(^\w+)')
+newFileName=$(date +%m_%d_%Y)$(echo $fileName | grep -Eo '(^\w+)')
+newDirName=$(date +%m_%d_%Y)$(echo $dirName | grep -Eo '(^\w+)')
 #will act as compressed file name
 if [ -f $1 ]; then
-       echo "checking if backup of file exists"
+       echo "Checking if backup of file exists"
 #Accepts initial file name for compression
-       if [ -f /home/gillescastro/backup/$newFileName.gz ]; then
+       if [ -f $HOME/backup/$newFileName.gz ]; then
 	    echo "Would you like to update $newFileName.gz?"
 	    echo "Press [1] to overwrite, press [2] to create new backup or press [3] to  exit"
 	    read -n 1 -p "Input Selection: [1/2/3]" overwriteSel
@@ -25,11 +31,13 @@ if [ -f $1 ]; then
 	    if [ $overwriteSel -eq 1 ]; then
 		    echo "We will overwrite the backup now $(date)"
 		    tar -czf ~/backup/$newFileName.gz $1
+		    echo "Overwritten!"
 		    exit 0
 #Overwrites the backup
 	    elif [ $overwriteSel -eq 2 ]; then
 		    read -p "What would you like to name the new backup? :" newBackupname
 		    tar -czf ~/backup/$newBackupname.gz $1
+		    echo "New Backup has been Created!"
 		    exit 0
 	    else
 		    exit 0 
@@ -38,11 +46,12 @@ if [ -f $1 ]; then
        else
 	   echo "We will create the compressed backup now" 
 	   tar -czf ~/backup/$newFileName.gz $1 
+	   echo "Created to see the backup navigate to the $(HOME)/backup directory"
        fi	   
 #The below takes the same action if original folder is a directory 
 elif [ -d $1 ]; then
        echo "Checking if backup of directory exists"
-       if [ -f /home/gillescastro/backup/$newDirName.gz ]; then
+       if [ -f $HOME/backup/$newDirName.gz ]; then
 #Even if originally directory looking for new .gz file
 	       echo "Would you like to update $newDirName.gz?"
 	       echo "Press [1] to overwrite, press [2] to create new and press [3] if you want to exit "
@@ -51,10 +60,12 @@ elif [ -d $1 ]; then
 	       if [ $overwriteSel -eq 1 ]; then 
 		    echo "We will overwrite the backup now $(date)"
                     tar -czf ~/backup/$newDirName.gz $1
+		    echo "Overwritten!"
                     exit 0
 	       elif [ $overwriteSel -eq 2 ]; then
                     read -p "What would you like to name the new backup? :" newBackupname
                     tar -czf ~/backup/$newBackupname.gz $1
+		    echo "Created to see the backup navigate to the $(HOME)/backup directory"
                     exit 0
 	       else
 		       exit 0
