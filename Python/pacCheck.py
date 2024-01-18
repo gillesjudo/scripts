@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 import subprocess
 
-if __name__ =="__main__":
-    package = input("What package do you want checked? ")
-
 def package_checker(package):
+
     find=['find', '/usr/sbin', '/usr/bin', '/bin', '-type', 'f', '-name', package]
     install=['sudo', 'apt', 'install', package, '-y']
     find_output=subprocess.run(find, capture_output=True, text=True)
@@ -15,4 +13,10 @@ def package_checker(package):
     else:
         return print(package, "is present.")
 
+
+if __name__ =="__main__":
+    package = str(input("What package do you want checked? "))
+    pack_array = [pack.strip() for pack in package.split(',')]
+    for pack in pack_array:
+        package_checker(pack)
 
