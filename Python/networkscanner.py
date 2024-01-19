@@ -7,9 +7,9 @@ from pacCheck import package_checker
 '''This script will require the program netdiscover so we will create
 a function to ensure the netdiscover package is present.'''
 
-package ='netdiscover'
+package = ['netdiscover', 'nmap', 'scapy']
 package_checker(package)
-
+'''
 ipa = subprocess.Popen(('ip', '-4', '-brief', 'address', 'show'), stdout=subprocess.PIPE)
 greps = subprocess.Popen(('grep', '-Eo', '([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-3][0-9]'), stdin=ipa.stdout, stdout=subprocess.PIPE)
 ipa.stdout.close()
@@ -24,3 +24,4 @@ ipRange = myIP.strip().decode('utf-8') + range
 print(ipRange)
 
 netscan = subprocess.run(('sudo' ,'netdiscover', '-r', ipRange))
+'''
