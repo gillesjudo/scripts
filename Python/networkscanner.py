@@ -1,17 +1,18 @@
 #!/usr/bin/env python3 
 
+import argparse
 import subprocess
 import re
 from pacCheck import package_checker
-from scapy.all import *
+import scapy.all as scapy
 
 '''This script will require the program netdiscover so we will create
 a function to ensure the netdiscover package is present.'''
-
+print("[+] Welcome! Lets scan some networks! First lets ensure\n[+] you have the dependencies for this script")
 package = ['nmap', 'scapy']
 package_checker(package)
+print("[+] Now lets take a look at your ip and hwaddress")
 
-userIP = ""
 def myIP():
     global userIP 
     global userHW
@@ -25,7 +26,7 @@ def myIP():
     greps.stdout.close()
     userIP = str(ip_Addr.strip().decode('utf-8'))
     userHW = str(hw_Addr.strip().decode('utf-8'))
-    print('Your IP address is', userIP,'\nYour mac address is', userHW )
+    print('[+] Your IP address is', userIP,'\n[+] Your mac address is', userHW )
 myIP()
 '''
 Now that I am able to extract the IP I want to be able to extrapolate out into
@@ -34,8 +35,11 @@ not only use arp to find other hosts but to also include a ping scan if we dont
 mind being noisy. So we will first below create a function to do an arp broadcast.  
 '''
 def layer2NetScan(ip):
-   print(userIP)
-   
+   arp_Broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")   
+   arp_Target = scapy.ARP(pdst=ip)
+   arp_Full_Broadcast = scapy.srp(arp_Broadcast/arp_Target, timeout=2)[0]
+   print(arp_Full_Broadcast)
+
 layer2NetScan(userIP)
 
 '''I want to give the user 3 options for scanning a network. I want to give a 
