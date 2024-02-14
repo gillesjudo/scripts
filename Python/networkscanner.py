@@ -16,6 +16,8 @@ print("[+] Now lets take a look at your ip and hwaddress")
 def myIP():
     global userIP 
     global userHW
+    global gateway
+    global subnetRange
     ipcom = subprocess.Popen(('ip', '-4', '-brief', 'address', 'show'), stdout=subprocess.PIPE)
     ip_Addr = subprocess.check_output(('grep', '-Eo', '([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-3][0-9]'), stdin=ipcom.stdout)
     ipcom.stdout.close()

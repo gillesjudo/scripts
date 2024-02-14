@@ -18,6 +18,8 @@ else
                     echo 'Package: *'>/etc/apt/preferences.d/kali.pref
                     echo 'Pin: release a=kali-rolling'>>/etc/apt/preferences.d/kali.pref
                     echo 'Pin-Priority: 50'>>/etc/apt/preferences.d/kali.pref
+                    apt update -y
+                    apt install -f
                     echo '[+] The repo was added successfully!'
                     echo '[+] you should run sudo apt update && sudo apt upgrade to ensure the package lists are properly updated'
                 else 
