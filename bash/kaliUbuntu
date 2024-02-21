@@ -26,8 +26,8 @@ elif [[ $(cat /etc/*-release | grep ID=kali | grep -o kali) == 'kali' && -z $kal
         esac
     done
 #The above if statement checks if the device is running kali and checks if the user has kali is installed 
-#and checks if the user has the commonly used john package installed. If both are true the script assumes 
-#this is a kali minimal system. 
+#and checks if the user has any of the kali tools installed or the headless metapackage by seeing if the var is empty.
+#If both are true the script assumes this is a kali minimal system. 
 else
     echo "[?] Do you wish to install the kali repository onto this debian system?"
     select yn in "Yes" "No"; do
