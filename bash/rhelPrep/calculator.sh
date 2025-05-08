@@ -20,14 +20,20 @@ if [[ -n $operation ]]; then
 			echo $answer
 			;;
 		sub)
-			let answer=$(($interger1+$integer2))
+			let answer=$(($integer1-$integer2))
 			echo $answer
 			;;
 		mul)
-			let answer=
-		
-	#elif *
-	#elif **
-	#elif /
+			let answer=$(($integer1*$integer2))
+			echo $answer
+			;;
+		div)
+			let answer=$(($integer1/$integer2))
+			echo $answer
+			;;
+		exp)	
+			let answer=$(($integer1**$integer2))
+			echo $answer
+			;;
 	esac
 fi

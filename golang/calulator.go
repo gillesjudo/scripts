@@ -29,7 +29,11 @@ func main() {
 	case "*":
 		fmt.Println(number, "*", numberTwo, "=", number * numberTwo )
 	case "/":
+		if ( number == 0 ) || ( numberTwo == 0 ) {
+		fmt.Println("Division by 0 is not allowed")
+	} else {
 		fmt.Println(number,"/", numberTwo, "=", number / numberTwo)
+	}
 		// I need to add an ability to address division by 0
 	case "^":
 		total := math.Pow(number, numberTwo)
