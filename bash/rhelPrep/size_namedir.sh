@@ -10,17 +10,16 @@ realstruct='^\/([0-9A-Za-z]+(\/)){0,}'
 endPath='(\/)$'
 homeEnv='^\~'
 present='^\.'
-if [[ ! $path =~ $endPath ]]; then
+if [[ ! $path =~ $endPath && $path =~ $realstruct ]]; then
 #check if path is a real path
 	path="$path/"
 elif [[ $path =~ $homeEnv ]]; then
-	path="$HOME$path"
+	path="$HOME$(echo $path | sed 's/~//g')"
 	if [[ ! $path =~ $endPath ]]; then
 		path=$path/
 	fi
 elif [[ $path =~ $present ]];then
-	path=$(pwd)$(echo $path | sed 's/\.\///g')
-	echo $path
+	path="$(pwd)$(echo $path | sed 's/\.\///g')/"
 	
 fi
 	
