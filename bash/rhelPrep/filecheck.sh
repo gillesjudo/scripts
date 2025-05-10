@@ -17,36 +17,31 @@ elif [[ $rfile =~ $local ]]; then
 	rfile=$(pwd)/$(echo "$rfile" | sed 's/\.\///')
 fi
 
-if [[ -r $rfile ]]; then 
-	echo "This file is readable"
-elif [[ -d $rfile ]]; then 
-	echo  "This is not a file but a directory"
-	echo  "Maybe your file is in here?"
-	contents=$(ls)
-	echo 'Would you like to check one of the contents within?'
-	yes=1
-	no=2
-	answer=""
+if [[ -r $rfile && -f $rfile ]]; then 
+	echo "$rfile is readable"
+elif [[ -d $rfile && -r $rfile ]]; then 
+	echo "$rfile is not a file but a directory."
+	echo "Would you like to check the contents $rfile and see if they are readable"
+	contents=$(ls $rfile)
+	echo $contents
+	counter=0
 	read answer
-	while $answer="";
-		echo 'please answer 1 for yes or 2 for no'
-		if [[ ! $answer -eq $yes || ! $answer -eq $no ]]; then 
-			echo 'Please answer yes or no'
-		elif [[ $answer -eq $yes ]];then
-			echo "$(contents)"
-			echo "Please choose a file"
-			read entity
-			while $entity="";
-				filename="[A-Za-z0-9]+(\.[a-z]+)?"
-				if [[ ! $entity =~ $filename ]]; then
-					entity=""
-					echo "Please enter a proper filename " 
-				elif [[ -r $rfile$entity ]]; then 
-					echo "$entity is readable"
-				elif [[ ! -r $rfile$entity ]]; then
-					echo "This file is not readable"
+	case $answer in
+		yes)
+			echo "Here are the contents of the directory: "
+			echo "$(ls $counter)"
+			case 
 
-			elif [[ $answer -eq $no ]]; then 
-			echo "Thank you have a good day!"
-			exit 0
+	#		esac
+
+	#esac
+	for i in $contents; do 
+		counter=$((counter+1))
+		echo "$counter $i"
+		
+
+	done 
+else
+	echo "You do not have permissions to read that file or directory."
+
 fi
