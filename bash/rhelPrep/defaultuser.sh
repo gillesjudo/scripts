@@ -1,0 +1,1 @@
+#Create a function to add a user to the system. The function should take the username as an argument and create the user with a default password. The function should also add the user to a specified group.

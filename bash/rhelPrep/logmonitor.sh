@@ -1,0 +1,1 @@
+#Create a function to monitor a log file for specific keywords. The function should take the log file path and a list of keywords as arguments. The function should continuously monitor the log file for the keywords and print a message when a keyword is found. Use the tail -f command to monitor the log file.

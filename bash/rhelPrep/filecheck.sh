@@ -23,24 +23,39 @@ elif [[ -d $rfile && -r $rfile ]]; then
 	echo "$rfile is not a file but a directory."
 	echo "Would you like to check the contents $rfile and see if they are readable"
 	contents=$(ls $rfile)
-	echo $contents
 	counter=0
 	read answer
 	case $answer in
 		yes)
 			echo "Here are the contents of the directory: "
 			echo "$(ls $counter)"
-			case 
+			for i in $contents; do 
+				counter=$((counter+1))
+				echo "$counter $i"
+			done
+			echo 'Would you like to open a file within?'
+			read answer
+			if [[ $answer='yes' ]]; then 
+				echo 'Which file would you like to open? '
+				read dirfile
+				dirfile=$rfile/$dirfile
+				if [[ -r $dirfile && -f $dirfile ]]; then 
+					echo 'This file is readable'
+				elif [[ -d $dirfile ]]; then
+					echo 'This is also a directory.'
+				else
+					echo 'This is not a readable file'
+				fi
 
-	#		esac
-
-	#esac
-	for i in $contents; do 
-		counter=$((counter+1))
-		echo "$counter $i"
+			else
+				exit 0
+			fi
+		;;
+		no)
+			echo 'Thank you for using this program.'
+		;;
+	esac
 		
-
-	done 
 else
 	echo "You do not have permissions to read that file or directory."
 
